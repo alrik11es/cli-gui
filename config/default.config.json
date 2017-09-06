@@ -1,0 +1,13 @@
+{
+  "config":{
+    "port": "1234"
+  },
+  "hooks":[
+    {
+      "name": "example-hook",
+      "url": "/hook",
+      "action": "shell",
+      "params": "echo 'Hook launched'"
+    }
+  ]
+}
