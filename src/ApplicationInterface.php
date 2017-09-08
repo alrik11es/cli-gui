@@ -3,5 +3,5 @@ namespace Alr\CliGui;
 
 interface ApplicationInterface
 {
-    public function run();
+    public function main();
 }

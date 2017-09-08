@@ -3,7 +3,6 @@ include '../vendor/autoload.php';
 
 class MyApp extends \Alr\CliGui\Core implements \Alr\CliGui\ApplicationInterface
 {
-
     public $map = [
         ['|','|','|','|','|','|','|','|','|','|','|','|','|','|','|','|','|','|','|','|','|','|'],
         ['|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'],
@@ -16,10 +15,28 @@ class MyApp extends \Alr\CliGui\Core implements \Alr\CliGui\ApplicationInterface
     ];
     public $pl = [4, 6];
 
-    public function run()
+    public function init()
     {
+        $this->eventDispatcher->addListener(\Alr\CliGui\Events\KeyDown::NAME, function($key){
+            if($key->getKey() == 'd'){
+                $this->pl[0]++;
+            }
+            if($key->getKey() == 'a'){
+                $this->pl[0]--;
+            }
+            if($key->getKey() == 's'){
+                $this->pl[1]++;
+            }
+            if($key->getKey() == 'w'){
+                $this->pl[1]--;
+            }
+            $key->stopPropagation();
+        });
+    }
 
-        $this->canvas->addToBuffer('FPS: '.$this->canvas->getFPS().PHP_EOL);
+    public function main()
+    {
+        $this->canvas->addToBuffer($this->canvas->getFPS().'fps - '. round(((memory_get_usage() / 1024) / 1024),2).'M' .PHP_EOL);
 
         $y = 0;
         foreach($this->map as $row){
@@ -37,21 +54,6 @@ class MyApp extends \Alr\CliGui\Core implements \Alr\CliGui\ApplicationInterface
             $y++;
         }
 
-        $this->eventDispatcher->addListener(\Alr\CliGui\Events\KeyDown::NAME, function($key){
-            if($key->getKey() == 'd'){
-                $this->pl[0]++;
-            }
-            if($key->getKey() == 'a'){
-                $this->pl[0]--;
-            }
-            if($key->getKey() == 's'){
-                $this->pl[1]++;
-            }
-            if($key->getKey() == 'w'){
-                $this->pl[1]--;
-            }
-            $key->stopPropagation();
-        });
     }
 }
 

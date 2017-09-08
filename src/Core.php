@@ -5,7 +5,7 @@ use Alr\CliGui\Events\KeyDown;
 use Alr\CliGui\Events\KeyUp;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
-class Core
+abstract class Core
 {
     public $eventDispatcher;
     public $lastBuffer;
@@ -15,10 +15,5 @@ class Core
     {
         $this->eventDispatcher = new EventDispatcher();
         $this->canvas = new Canvas();
-    }
-
-    public function run()
-    {
-
     }
 }
